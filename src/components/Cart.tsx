@@ -1,17 +1,21 @@
 "use client";
 
-import { ShoppingCart } from "lucide-react";
+import { Link, ShoppingCart } from "lucide-react";
 import {
   SheetContent,
   SheetHeader,
   SheetTitle,
   SheetTrigger,
   Sheet,
+  SheetFooter,
 } from "./ui/sheet";
 import { Separator } from "@/src/components/ui/separator";
+import { formatPrice } from "../lib/utils";
+import { buttonVariants } from "./ui/button";
 
 const Cart = () => {
-  const itemCount = 1;
+  const itemCount = 0;
+  const fee = 1;
   return (
     <Sheet>
       <SheetTrigger className="group -m-2 flex items-center p-2">
@@ -39,17 +43,58 @@ const Cart = () => {
               <div className="space-y-1.5 text-sm">
                 <div className="flex">
                   <span className="flex-1">Shipping</span>
-                  <span>Free</span>
+                  <span>Fee</span>
                 </div>
                 <div className="flex">
                   <span className="flex-1">Transaction Free</span>
-                  <span>Free</span>
+                  <span>{formatPrice(fee)}</span>
+                </div>
+                <div className="flex">
+                  <span className="flex-1">Total</span>
+                  <span>{formatPrice(fee)}</span>
                 </div>
               </div>
+
+              <SheetFooter>
+                <SheetTrigger asChild>
+                  <a
+                    href="/cadt"
+                    className={buttonVariants({
+                      className: "w-full",
+                    })}
+                  >
+                    {" "}
+                    Continue to Checkout
+                  </a>
+                </SheetTrigger>
+              </SheetFooter>
             </div>
           </>
         ) : (
-          <div></div>
+          <div className="flex h-full flex-col items-center justify-center space-y-1">
+            <div
+              aria-hidden="true"
+              className="relative mb-4 h-60 text-muted-foreground"
+            >
+              <img
+                src="/hippo-empty-cart.jpg"
+                alt="empty shopping cart hippo"
+              ></img>
+            </div>
+            <div className="text-xl font-semibold">Your cart is empty</div>
+            <SheetTrigger asChild>
+              <a
+                href="/products"
+                className={buttonVariants({
+                  variant: "link",
+                  size: "sm",
+                  className: "text-sm text-muted-foreground",
+                })}
+              >
+                Add items to your cart to Checkout
+              </a>
+            </SheetTrigger>
+          </div>
         )}
       </SheetContent>
     </Sheet>
