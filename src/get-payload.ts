@@ -1,5 +1,4 @@
 import dotenv from "dotenv"
-import { initialize } from "next/dist/server/lib/render-server"
 import path from "path"
 import payload from "payload"
 import type { InitOptions } from "payload/config"
