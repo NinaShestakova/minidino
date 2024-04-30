@@ -4,14 +4,21 @@ import build from "next/dist/build";
 import { buildConfig } from "payload/config";
 import { webpackBundler } from "@payloadcms/bundler-webpack";
 import path from "path";
+import { Users } from "./app/collections/Users";
+import dotenv from "dotenv"
+
+dotenv.config({
+    path: path.resolve(__dirname, "../.env")
+})
 
 export default buildConfig({
     serverURL: process.env.NEX_PUBLIC_SERVER_URL || '',
-    collections: [],
+    collections: [Users],
     routes: {
         admin: '/sell'
     },
     admin: {
+        user: "users",
         bundler: webpackBundler(),
         meta: {
             titleSuffix: "- DigitalHippo",
@@ -21,6 +28,7 @@ export default buildConfig({
     },
     rateLimit: {
         max: 2000,
+        // trustProxy: true,
     },
     editor: slateEditor({}),
     db: mongooseAdapter({
