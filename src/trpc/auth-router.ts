@@ -23,7 +23,13 @@ export const authRouter = router({
 
         await payload.create({
             collection: "users",
-            data: {},
+            data: {
+                email,
+                password,
+                role: "user"
+            },
         })
+
+        return {seccess:true, sentToEmail: email}
     })
 })
