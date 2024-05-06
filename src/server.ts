@@ -12,9 +12,7 @@ const createContext = ({req, res} : trpcExpress.CreateExpressContextOptions) => 
     req, res
 })
 
-export type ExpressContext = inferAsyncReturnType<
-  typeof createContext
->
+export type ExpressContext = inferAsyncReturnType<typeof createContext>
 
 const start = async () => {
     const payload = await getPayloadClient({
