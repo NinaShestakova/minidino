@@ -60,15 +60,15 @@ const Page = () => {
         <div className="mx-auto flex w-full flex-col justify-center space-y-6 sm:w-[350px]">
           <div className="flex flex-col items-center space-y-2 text-center">
             <Icons.logo className="h-20 w-20" />
-            <h1 className="text-2xl font-bold">Create an account</h1>
+            <h1 className="text-2xl font-bold">Sign in to your account</h1>
             <a
               className={buttonVariants({
                 variant: "link",
                 className: "gap-1.5",
               })}
-              href="/sign-in"
+              href="/sign-up"
             >
-              Already have an account? Sign-in
+              Don&apos;t have an account?
               <ArrowRight className="h-4 w-4" />
             </a>
           </div>
