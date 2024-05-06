@@ -12,7 +12,7 @@ dotenv.config({
 })
 
 export default buildConfig({
-    serverURL: process.env.NEX_PUBLIC_SERVER_URL || '',
+    serverURL: process.env.NEXT_PUBLIC_SERVER_URL || '',
     collections: [Users],
     routes: {
         admin: '/sell'
@@ -28,7 +28,6 @@ export default buildConfig({
     },
     rateLimit: {
         max: 2000,
-        // trustProxy: true,
     },
     editor: slateEditor({}),
     db: mongooseAdapter({

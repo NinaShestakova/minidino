@@ -2,6 +2,9 @@ import { TRPCError } from "@trpc/server";
 import { getPayloadClient } from "../get-payload";
 import { AuthCredentialsValidator } from "../lib/validators/account-credentials-validator";
 import { publicProcedure, router } from "./trpc";
+import { verify } from "crypto";
+import VerifyEmail from "../components/VerifyEmail";
+import { z } from "zod";
 
 export const authRouter = router({
     createPayloadUser: publicProcedure.input(AuthCredentialsValidator).mutation(async ({input}) => {
@@ -22,14 +25,26 @@ export const authRouter = router({
             throw new TRPCError({code: 'CONFLICT'})
 
         await payload.create({
-            collection: "users",
+            collection: 'users',
             data: {
                 email,
                 password,
-                role: "user"
+                role: 'user'
             },
         })
 
         return {seccess:true, sentToEmail: email}
+    }),
+
+    VerifyEmail: publicProcedure.input(z.object({token: z.string()})).query(async ({input}) => {
+        const {token} = input 
+        const payload = await getPayloadClient()
+        const isVerified = await payload.verifyEmail({
+            collection: 'users',
+            token,
+        })
+
+        if(!isVerified) throw new TRPCError({code: "UNAUTHORIZED"})
+        return {success: true}
     })
 })
