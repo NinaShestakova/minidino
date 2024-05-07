@@ -1,14 +1,19 @@
-"user client";
+"use client";
 
-import { User } from "payload/dist/auth";
+// import { User } from "payload/dist/auth";
 import { Button } from "./ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
+import { useAuth } from "../hooks/use-auth";
+import { User } from "../payload-types";
 
 const UserAccountNav = ({ user }: { user: User }) => {
+  const { signOut } = useAuth();
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild className="overflow-visible">
@@ -23,6 +28,16 @@ const UserAccountNav = ({ user }: { user: User }) => {
             <p className="font-medium text-sm text-black">{user.email}</p>
           </div>
         </div>
+
+        <DropdownMenuSeparator />
+
+        <DropdownMenuItem asChild>
+          <a href="/sell">Seller Dashboard</a>
+        </DropdownMenuItem>
+
+        <DropdownMenuItem onClick={signOut} className="cursor-pointer">
+          Log out
+        </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   );
