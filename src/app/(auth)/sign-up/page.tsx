@@ -1,5 +1,5 @@
 "use client";
-import { Input } from "@/components/ui/input";
+import { Input } from "@/src/components/ui/input";
 import { Icons } from "@/src/components/Icons";
 import { Button, buttonVariants } from "@/src/components/ui/button";
 import { cn } from "@/src/lib/utils";
